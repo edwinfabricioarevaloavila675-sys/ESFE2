@@ -18,6 +18,7 @@ namespace ESFE.BusinessLogic
             );
             services.AddDataAccessServices(configuration);
 
+
             TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
 
             return services;
