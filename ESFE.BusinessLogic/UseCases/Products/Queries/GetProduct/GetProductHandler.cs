@@ -1,26 +1,23 @@
 ﻿using ESFE.BusinessLogic.DTOs;
 using ESFE.DataAccess.Interfaces;
-using ESFE.DataAccess.Repositories;
 using ESFE.Entities;
 using Mapster;
 using MediatR;
 
-namespace ESFE.BusinessLogic.UseCases.Products.Queries.GetProduct;
-
-internal sealed class GetProductHandler(IEfRepository<Product> repository) : IRequestHandler<GetProductQuery,ProductByIdResponse>
+namespace ESFE.BusinessLogic.UseCases.Products.Queries.GetProduct
 {
-    public async Task<ProductByIdResponse> Handle(GetProductQuery query, CancellationToken cancellationToken)
+    internal sealed class GetProductHandler(IEfRepository<Product> _repository) : IRequestHandler<GetProductQuery, ProductByIdResponse>
     {
-        
-        var product = await repository.GetByIdAsync(query.ProductId, cancellationToken);
-
-        
-        if (product is null)
+        public async Task<ProductByIdResponse> Handle(GetProductQuery query, CancellationToken cancellationToken)
         {
-            return new ProductByIdResponse();
-        }
+            var product = await _repository.GetByIdAsync(query.productId, cancellationToken);
 
-        
-        return product.Adapt< ProductByIdResponse>();
+            if (product is null)
+            {
+                return new ProductByIdResponse();
+            }
+
+            return product.Adapt<ProductByIdResponse>();
+        }
     }
 }

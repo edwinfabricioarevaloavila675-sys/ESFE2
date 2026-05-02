@@ -1,13 +1,18 @@
 ﻿using Ardalis.Specification;
 using ESFE.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ESFE.BusinessLogic.UseCases.Products.Specifications;
-
-public class GetLastProductCodeSpec : Specification<Product>
+namespace ESFE.BusinessLogic.UseCases.Products.Specifications
 {
-    public GetLastProductCodeSpec(string prefix)
+    public class GetLastProductCodeSpec : Specification<Product>
     {
-        Query.Where(p => p.ProductCode != null && p.ProductCode.StartsWith(prefix))
-             .OrderByDescending(p => p.ProductCode);
+        public GetLastProductCodeSpec(string prefix) {
+            Query.Where(p => p.ProductCode != null && p.ProductCode.StartsWith(prefix))
+            .OrderByDescending(p => p.ProductCode);
+        }
     }
 }

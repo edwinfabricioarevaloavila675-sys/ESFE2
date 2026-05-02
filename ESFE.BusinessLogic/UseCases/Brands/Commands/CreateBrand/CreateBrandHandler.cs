@@ -4,7 +4,6 @@ using Mapster;
 using MediatR;
 
 namespace ESFE.BusinessLogic.UseCases.Brands.Commands.CreateBrand;
-
 internal sealed class CreateBrandHandler(IEfRepository<Brand> _repository)
     : IRequestHandler<CreateBrandCommand, int>
 {
@@ -15,7 +14,7 @@ internal sealed class CreateBrandHandler(IEfRepository<Brand> _repository)
             var newBrand = command.Request.Adapt<Brand>();
 
             var createdBrand = await _repository.AddAsync(newBrand, cancellationToken);
-
+            
             return createdBrand.BrandId;
         }
         catch (Exception)
